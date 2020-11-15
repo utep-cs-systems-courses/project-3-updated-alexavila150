@@ -72,6 +72,29 @@ void drawChar5x7(u_char rcol, u_char rrow, char c,
   }
 }
 
+void drawChar8x12(u_char rcol, u_char rrow, char c, 
+     u_int fgColorBGR, u_int bgColorBGR) 
+{
+  u_char col = 0;
+  u_char row = 0;
+  u_char bit = 0x80;
+  u_char oc = c - 0x20;
+
+  lcd_setArea(rcol, rrow, rcol + 8, rrow + 12); /* relative to requested col/row */
+  while (row < 13) {
+    while (col < 9) {
+      u_int colorBGR = (font_8x12[oc][row] & bit) ? fgColorBGR : bgColorBGR;
+      u_int color = (col % 2)? fgColorBGR : bgColorBGR;
+      lcd_writeColor(colorBGR);
+      bit >>= 1;
+      col++;
+    }
+    col = 0;
+    bit = 0x80;
+    row++;
+  }
+}
+
 /** Draw string at col,row
  *  Type:
  *  FONT_SM - small (5x8,) FONT_MD - medium (8x12,) FONT_LG - large (11x16)

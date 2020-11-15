@@ -18,6 +18,13 @@ main()
 
   drawString5x7(20,20, "hello", COLOR_GREEN, COLOR_RED);
 
+  drawChar8x12(5,  00, 'a', COLOR_BLACK, COLOR_BLUE);
+  drawChar8x12(5,  20, 'b', COLOR_BLACK, COLOR_BLUE);
+  drawChar8x12(5,  40, 'c', COLOR_BLACK, COLOR_BLUE);
+  drawChar8x12(5,  60, 'A', COLOR_BLACK, COLOR_BLUE);
+  drawChar8x12(5,  80, '!', COLOR_BLACK, COLOR_BLUE);
+  drawChar8x12(5, 100, '-', COLOR_BLACK, COLOR_BLUE);
+  drawChar5x7(5, 120, '!', COLOR_BLACK, COLOR_BLUE);
   fillRectangle(30,30, 60, 60, COLOR_ORANGE);
   
 }
