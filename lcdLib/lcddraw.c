@@ -138,3 +138,15 @@ void drawRectOutline(u_char colMin, u_char rowMin, u_char width, u_char height,
   fillRectangle(colMin + width, rowMin, 1, height, colorBGR);
 }
 
+/*
+  This method will draw a field which is suppose to be where the player is going to stand
+ */
+void drawField(u_char col, u_char row){
+  for(int i = 0; i < 50; i++){
+    drawPixel(col, i + row, BLACK);
+    for(int j = 50 - i; j >= 0; j--){
+      drawPixel(col + j, row + i, COLOR_SPRING_GREEN);
+      drawPixel(col - j, row + i, COLOR_SPRING_GREEN);
+    }
+  }
+}
