@@ -150,3 +150,95 @@ void drawField(u_char col, u_char row){
     }
   }
 }
+
+void drawCharacter(u_char col, u_char row, u_int color){
+  drawPixel(col - 1, row - 6, color);
+  drawPixel(col    , row - 6, color);
+  drawPixel(col + 1, row - 6, color);
+
+  drawPixel(col - 1, row - 5, color);
+  drawPixel(col    , row - 5, color);
+  drawPixel(col + 1, row - 5, color);
+
+  drawPixel(col - 1, row - 4, color);
+  drawPixel(col    , row - 4, color);
+  drawPixel(col + 1, row - 4, color);
+
+  drawPixel(col    , row - 3, color);
+
+  drawPixel(col - 1, row - 2, color);
+  drawPixel(col    , row - 2, color);
+  drawPixel(col + 4, row - 2, color);
+  
+  drawPixel(col - 2, row - 1, color);
+  drawPixel(col    , row - 1, color);
+  drawPixel(col + 1, row - 1, color);
+  drawPixel(col + 3, row - 1, color);
+
+  drawPixel(col - 3, row    , color);
+  drawPixel(col    , row    , color);
+  drawPixel(col + 2, row    , color);
+
+  drawPixel(col - 2, row + 1, color);
+  drawPixel(col    , row + 1, color);
+
+  drawPixel(col    , row + 2, color);
+
+  drawPixel(col - 1, row + 3, color);
+  drawPixel(col + 1, row + 3, color);
+
+  drawPixel(col - 2, row + 4, color);
+  drawPixel(col + 2, row + 4, color);
+
+  drawPixel(col - 3, row + 5, color);
+  drawPixel(col + 3, row + 5, color);
+
+  drawPixel(col - 4, row + 6, color);
+  drawPixel(col + 4, row + 6, color);
+}
+
+void drawCharacter2(u_char col, u_char row, u_int color){
+  drawPixel(col - 1, row - 6, color);
+  drawPixel(col    , row - 6, color);
+  drawPixel(col + 1, row - 6, color);
+
+  drawPixel(col - 1, row - 5, color);
+  drawPixel(col    , row - 5, color);
+  drawPixel(col + 1, row - 5, color);
+
+  drawPixel(col - 1, row - 4, color);
+  drawPixel(col    , row - 4, color);
+  drawPixel(col + 1, row - 4, color);
+
+  drawPixel(col    , row - 3, color);
+
+  drawPixel(col + 1, row - 2, color);
+  drawPixel(col    , row - 2, color);
+  drawPixel(col - 4, row - 2, color);
+  
+  drawPixel(col + 2, row - 1, color);
+  drawPixel(col    , row - 1, color);
+  drawPixel(col - 1, row - 1, color);
+  drawPixel(col - 3, row - 1, color);
+
+  drawPixel(col + 3, row    , color);
+  drawPixel(col    , row    , color);
+  drawPixel(col - 2, row    , color);
+
+  drawPixel(col + 2, row + 1, color);
+  drawPixel(col    , row + 1, color);
+
+  drawPixel(col    , row + 2, color);
+
+  drawPixel(col - 1, row + 3, color);
+  drawPixel(col + 1, row + 3, color);
+
+  drawPixel(col - 2, row + 4, color);
+  drawPixel(col + 2, row + 4, color);
+
+  drawPixel(col - 3, row + 5, color);
+  drawPixel(col + 3, row + 5, color);
+
+  drawPixel(col - 4, row + 6, color);
+  drawPixel(col + 4, row + 6, color);
+}

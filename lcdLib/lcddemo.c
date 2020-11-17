@@ -26,5 +26,7 @@ main()
   //drawChar8x12(5, 100, '-', COLOR_BLACK, COLOR_BLUE);
   //drawChar5x7(5, 120, '!', COLOR_BLACK, COLOR_BLUE);
   //fillRectangle(30,30, 60, 60, COLOR_ORANGE);
-  drawField(60, 100);
+  drawField(60, 80);
+  drawCharacter(30, 73, COLOR_RED);
+  drawCharacter2(90, 73, COLOR_YELLOW);
 }
