@@ -2,6 +2,7 @@
 #include <libTimer.h>
 #include "lcdutils.h"
 #include "lcddraw.h"
+#include "stateMachines.h"
 
 #define LED_GREEN BIT6             // P1.6
 
@@ -14,6 +15,13 @@ void wdt_c_handler()
   static int secCount = 0;
 
   secCount ++;
+
+  if (secCount % 25 == 0){
+    jump_advance();
+    drawCharacter(p1col, p1row, COLOR_RED);
+    drawCharacter2(p2col, p2row, COLOR_YELLOW);
+  }
+  
   if (secCount == 250) {		/* once/sec */
     secCount = 0;
     fontFgColor = (fontFgColor == COLOR_GREEN) ? COLOR_BLACK : COLOR_GREEN;
@@ -28,6 +36,8 @@ void main()
   P1OUT |= LED_GREEN;
   configureClocks();
   lcd_init();
+  state_init();
+  
   
   enableWDTInterrupts();      /**< enable periodic interrupt */
   or_sr(0x8);	              /**< GIE (enable interrupts) */
@@ -36,7 +46,10 @@ void main()
   while (1) {			/* forever */
     if (redrawScreen) {
       redrawScreen = 0;
-      drawString5x7(20,20, "hello world!", fontFgColor, COLOR_BLUE);
+      drawString5x7(20,20, "Smash Ultimate!", fontFgColor, COLOR_BLUE);
+      drawField(60, 90);
+      drawCharacter(p1col, p1row, COLOR_RED);
+      drawCharacter2(p2col, p2row, COLOR_YELLOW);
     }
     P1OUT &= ~LED_GREEN;	/* green off */
     or_sr(0x10);		/**< CPU OFF */
