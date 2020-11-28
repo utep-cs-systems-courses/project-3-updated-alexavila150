@@ -3,8 +3,8 @@
 #include "lcdutils.h"
 #include "lcddraw.h"
 #include "stateMachines.h"
+#include "led.h"
 
-#define LED_GREEN BIT6             // P1.6
 
 
 short redrawScreen = 1;
@@ -32,16 +32,17 @@ void wdt_c_handler()
 
 void main()
 {
-  P1DIR |= LED_GREEN;		/**< Green led on when CPU on */		
-  P1OUT |= LED_GREEN;
+  P1DIR |= LED_RED;		/**< Green led on when CPU on */		
+  P1OUT |= LED_RED;
   configureClocks();
+
   lcd_init();
   state_init();
-  
+  led_init();
   
   enableWDTInterrupts();      /**< enable periodic interrupt */
   or_sr(0x8);	              /**< GIE (enable interrupts) */
-  
+
   clearScreen(COLOR_BLUE);
   while (1) {			/* forever */
     if (redrawScreen) {
@@ -51,9 +52,9 @@ void main()
       drawCharacter(p1col, p1row, COLOR_RED);
       drawCharacter2(p2col, p2row, COLOR_YELLOW);
     }
-    P1OUT &= ~LED_GREEN;	/* green off */
+    P1OUT &= ~LED_RED;	/* green off */
     or_sr(0x10);		/**< CPU OFF */
-    P1OUT |= LED_GREEN;		/* green on */
+    P1OUT |= LED_RED;		/* green on */
   }
 }
 
