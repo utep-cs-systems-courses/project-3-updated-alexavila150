@@ -4,6 +4,9 @@
 #include "lcddraw.h"
 #include "stateMachines.h"
 #include "led.h"
+#include "buzzer.h"
+
+int note_index = 0;
 
 void state_init()
 {
@@ -39,4 +42,26 @@ void jump_advance()
 void delete_player1(u_int bgColor){
   drawCharacter(p1col, p1row, bgColor);
 }
+
+void songStateAdvance(){
+  static char state = 0;
+  //change note every 200 miliseconds
+  if(++state == duration[note_index] * 50 && note_index < 42){
+    note_index++;
+    buzzer_set_period(2000000 / notes[note_index]);
+    state = 0;
+  }
+  
+  //make pause when node is ending
+  if(++state == duration[note_index] * 50 - 5){
+    buzzer_set_period(0);
+  }
+  
+  //end song
+  if(note_index == 42){
+    buzzer_set_period(0);
+    turn_red_off();
+  }
+}
+
 

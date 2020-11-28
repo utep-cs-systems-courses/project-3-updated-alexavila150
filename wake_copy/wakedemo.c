@@ -30,7 +30,6 @@ void wdt_c_handler()
     s0IsPressed = (s0IsPressed) ? 0 : 1;
     buttonState = 0;
     if(s0IsPressed){
-      clearScreen(COLOR_ORANGE);
       init_smash();
       buttonState = 0;
     }
@@ -39,7 +38,6 @@ void wdt_c_handler()
   if((switches & 512)){
     s1IsPressed = (s1IsPressed) ? 0 : 1;
     if(s1IsPressed){
-      clearScreen(COLOR_BLUE);
       buttonState = 1;
     }
   }
@@ -58,9 +56,7 @@ void wdt_c_handler()
     }
   }
 
-  if(secCount == 25){
-
-  
+  if(secCount % 25 == 0){
     switch(buttonState){
     case 0:
       playSmashBros(secCount);
@@ -73,6 +69,7 @@ void wdt_c_handler()
       break;
     case 3:
       clearScreen(COLOR_GREEN);
+      songStateAdvance();
       break;
     }
   }
@@ -113,14 +110,15 @@ void main()
 }
 
 void init_smash(){
+  clearScreen(COLOR_BLUE);
   drawCharacter2(p2col, p2row, COLOR_YELLOW);
-  drawString5x7(20,20, "Smash Ultimate!", fontFgColor, COLOR_BLUE);
   drawField(60, 90);
 }
 
 void playSmashBros(int secCount){
   if (secCount % 25 == 0){
-    //jump_advance();
+    jump_advance();
+    drawString5x7(20,20, "Smash Ultimate!", fontFgColor, COLOR_BLUE);
     drawCharacter(p1col, p1row, COLOR_RED);
     drawCharacter2(p2col, p2row, COLOR_YELLOW);
   }
