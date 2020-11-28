@@ -10,32 +10,45 @@
 
 short redrawScreen = 1;
 u_int fontFgColor = COLOR_GREEN;
-u_int switches = 0;
+
 
 void wdt_c_handler()
 {
   static int secCount = 0;
   secCount ++;
 
-  switches = p2sw_read();
-  
-  //if(switches){
-  //clearScreen(COLOR_RED);
-  //}else 
+  u_int switches = p2sw_read();
+    
+  if((switches & BIT8)){
+    clearScreen(COLOR_RED);
+  }
+
+  if((switches & 512)){
+    clearScreen(COLOR_ORANGE);
+  }
+
+  if((switches & 1024)){
+    clearScreen(COLOR_PINK);
+  }
+
+  if((switches & 2048)){
+    clearScreen(COLOR_BLACK);
+  }
   
   if (secCount % 25 == 0){
     jump_advance();
+    clearScreen(COLOR_BLUE);
     drawCharacter(p1col, p1row, COLOR_RED);
     drawCharacter2(p2col, p2row, COLOR_YELLOW);
     drawString5x7(20,20, "Smash Ultimate!", fontFgColor, COLOR_BLUE);
     drawField(60, 90);
   }
-  
   if (secCount == 250) {		/* once/sec */
     secCount = 0;
     fontFgColor = (fontFgColor == COLOR_GREEN) ? COLOR_BLACK : COLOR_GREEN;
     redrawScreen = 1;
   }
+  switches = 15;
 }
   
 
@@ -50,6 +63,7 @@ void main()
   led_init();
   p2sw_init(15);
 
+  
   clearScreen(COLOR_BLUE);
   enableWDTInterrupts();      /**< enable periodic interrupt */
   or_sr(0x8);	              /**< GIE (enable interrupts) */
