@@ -1,5 +1,6 @@
 #include <msp430.h>
 #include <libTimer.h>
+#include <p2switches.h>
 #include "lcdutils.h"
 #include "lcddraw.h"
 #include "stateMachines.h"
@@ -9,17 +10,25 @@
 
 short redrawScreen = 1;
 u_int fontFgColor = COLOR_GREEN;
+u_int switches = 0;
 
 void wdt_c_handler()
 {
   static int secCount = 0;
-
   secCount ++;
 
+  switches = p2sw_read();
+  
+  //if(switches){
+  //clearScreen(COLOR_RED);
+  //}else 
+  
   if (secCount % 25 == 0){
     jump_advance();
     drawCharacter(p1col, p1row, COLOR_RED);
     drawCharacter2(p2col, p2row, COLOR_YELLOW);
+    drawString5x7(20,20, "Smash Ultimate!", fontFgColor, COLOR_BLUE);
+    drawField(60, 90);
   }
   
   if (secCount == 250) {		/* once/sec */
@@ -39,7 +48,9 @@ void main()
   lcd_init();
   state_init();
   led_init();
-  
+  p2sw_init(15);
+
+  clearScreen(COLOR_BLUE);
   enableWDTInterrupts();      /**< enable periodic interrupt */
   or_sr(0x8);	              /**< GIE (enable interrupts) */
 

@@ -20,7 +20,6 @@ void jump_advance()
   static char state = 0;
   switch(state){
   case 0:
-    //turn_green_on();
     delete_player1(COLOR_BLUE);
     p1row--;
     if(p1row <= maxHeight){
@@ -28,7 +27,6 @@ void jump_advance()
     }
     break;
   case 1:
-    turn_green_off();
     delete_player1(COLOR_BLUE);
     p1row++;
     if(p1row >= minHeight){
