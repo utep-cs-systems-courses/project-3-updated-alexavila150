@@ -24,14 +24,14 @@ void jump_advance()
   static char state = 0;
   switch(state){
   case 0:
-    delete_player1(COLOR_BLUE);
+    delete_player1(COLOR_LIGHT_BLUE);
     p1row--;
     if(p1row <= maxHeight){
       state = 1;
     }
     break;
   case 1:
-    delete_player1(COLOR_BLUE);
+    delete_player1(COLOR_LIGHT_BLUE);
     p1row++;
     if(p1row >= minHeight){
       state = 0;
