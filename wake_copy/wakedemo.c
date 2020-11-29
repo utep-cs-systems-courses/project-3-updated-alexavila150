@@ -5,6 +5,7 @@
 #include "lcddraw.h"
 #include "stateMachines.h"
 #include "led.h"
+#include "buzzer.h"
 
 void init_smash();
 void playSmashBros(int secCount);
@@ -56,22 +57,25 @@ void wdt_c_handler()
     }
   }
 
-  if(secCount % 25 == 0){
-    switch(buttonState){
-    case 0:
-      playSmashBros(secCount);
-      break;
-    case 1:
+  switch(buttonState){
+  case 0:
+    playSmashBros(secCount);
+    break;
+  case 1:
+    if(secCount % 25 == 0){
       clearScreen(COLOR_PINK);
-      break;
-    case 2:
-      clearScreen(COLOR_BLACK);
-      break;
-    case 3:
-      clearScreen(COLOR_GREEN);
-      songStateAdvance();
-      break;
+      buzzer_set_period(0);
     }
+    break;
+  case 2:
+    if(secCount % 25 == 0){
+      clearScreen(COLOR_BLACK);
+      buzzer_set_period(0);
+    }
+    break;
+  case 3:
+    songStateAdvance();
+    break;
   }
   
   if (secCount == 250) {		/* once/sec */
@@ -92,7 +96,7 @@ void main()
   state_init();
   led_init();
   p2sw_init(15);
-
+  buzzer_init();
   
   clearScreen(COLOR_BLUE);
   enableWDTInterrupts();      /**< enable periodic interrupt */

@@ -7,6 +7,7 @@
 #include "buzzer.h"
 
 int note_index = 0;
+int song_state = 0;
 
 void state_init()
 {
@@ -44,7 +45,8 @@ void delete_player1(u_int bgColor){
 }
 
 void songStateAdvance(){
-  static char state = 0;
+  static int state = 0;
+  
   //change note every 200 miliseconds
   if(++state == duration[note_index] * 50 && note_index < 42){
     note_index++;
@@ -53,14 +55,14 @@ void songStateAdvance(){
   }
   
   //make pause when node is ending
-  if(++state == duration[note_index] * 50 - 5){
+  if(state == duration[note_index] * 50 - 5){
     buzzer_set_period(0);
   }
   
-  //end song
+  //repeat song
   if(note_index == 42){
     buzzer_set_period(0);
-    turn_red_off();
+    note_index = 0;
   }
 }
 
