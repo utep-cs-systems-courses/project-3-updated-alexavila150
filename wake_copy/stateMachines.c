@@ -66,4 +66,21 @@ void songStateAdvance(){
   }
 }
 
+void ledStateAdvance(int count){
+  static char state = 0;
+  switch(state){
+  case 0:
+    turn_green_dim();
+    break;
+  case 1:
+    turn_green_middle();
+    break;
+  case 2:
+    turn_green_bright();
+    break;
+  }
 
+  if (count == 250){
+    state = (state + 1) % 3;
+  }
+}

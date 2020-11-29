@@ -11,8 +11,8 @@ void turn_red_on();
 void turn_red_off();
 void turn_green_on();
 void turn_green_off();
-void turn_red_dim();
-void turn_red_middle();
-void turn_red_bright();
+void turn_green_dim();
+void turn_green_middle();
+void turn_green_bright();
 
 #endif

@@ -62,10 +62,7 @@ void wdt_c_handler()
     playSmashBros(secCount);
     break;
   case 1:
-    if(secCount % 25 == 0){
-      clearScreen(COLOR_PINK);
-      buzzer_set_period(0);
-    }
+    ledStateAdvance(secCount);
     break;
   case 2:
     if(secCount % 25 == 0){
@@ -80,7 +77,7 @@ void wdt_c_handler()
   
   if (secCount == 250) {		/* once/sec */
     secCount = 0;
-    fontFgColor = (fontFgColor == COLOR_GREEN) ? COLOR_BLACK : COLOR_GREEN;
+    fontFgColor = (fontFgColor == COLOR_BLUE) ? COLOR_BLACK : COLOR_BLUE;
     redrawScreen = 1;
   }
 }
@@ -107,7 +104,7 @@ void main()
     if (redrawScreen) {
       redrawScreen = 0;
     }
-    P1OUT &= ~LED_RED;	/* green off */
+    P1OUT &= ~LED_RED;	        /* green off */
     or_sr(0x10);		/**< CPU OFF */
     P1OUT |= LED_RED;		/* green on */
   }

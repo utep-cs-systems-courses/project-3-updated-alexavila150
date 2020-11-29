@@ -38,15 +38,15 @@ void turn_green_off()
 }
 
 //call function multiple times to produce a dim red light
-void turn_red_dim()
+void turn_green_dim()
 {
   static char state = 0;
   switch(state){
   case 0:
-    P1OUT &= ~LED_RED;
+    P1OUT &= ~LED_GREEN;
     break;
   case 3:
-    P1OUT |= LED_RED;
+    P1OUT |= LED_GREEN;
     break;
   }
 
@@ -54,15 +54,15 @@ void turn_red_dim()
 }
 
 //call function multiple times to produce a semi dim light
-void turn_red_middle()
+void turn_green_middle()
 {
   static char state = 0;
   switch(state){
   case 0:
-    P1OUT |= LED_RED;
+    P1OUT |= LED_GREEN;
     break;
   case 2:
-    P1OUT &= ~LED_RED;
+    P1OUT &= ~LED_GREEN;
     break;
   }
 
@@ -70,15 +70,15 @@ void turn_red_middle()
 }
 
 //call function multiple times to produce a bright light
-void turn_red_bright()
+void turn_green_bright()
 {
   static char state = 0;
   switch(state){
   case 0:
-    P1OUT |= LED_RED;
+    P1OUT |= LED_GREEN;
     break;
   case 3:
-    P1OUT &= ~LED_RED;
+    P1OUT &= ~LED_GREEN;
     break;
   }
 

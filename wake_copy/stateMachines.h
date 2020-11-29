@@ -15,5 +15,6 @@ void state_init();
 void jump_advance();
 void delete_player1();
 void songStateAdvance();
+void ledStateAdvance();
 
 #endif
