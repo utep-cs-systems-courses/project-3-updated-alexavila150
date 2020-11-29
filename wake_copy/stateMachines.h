@@ -20,5 +20,6 @@ void delete_player1();
 void delete_player2();
 void songStateAdvance();
 void ledStateAdvance();
+void resetStates();
 
 #endif

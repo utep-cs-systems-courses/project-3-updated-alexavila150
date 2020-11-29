@@ -93,8 +93,10 @@ void songStateAdvance(){
   }
 }
 
-void ledStateAdvance(int count){
-  static char state = 0;
+void ledStateAdvance(){
+  static int count = 0; // counts how long is going to repeat
+  static char state = 0; //determines if led is dim medium or bright
+  
   switch(state){
   case 0:
     turn_green_dim();
@@ -107,7 +109,46 @@ void ledStateAdvance(int count){
     break;
   }
 
-  if (count == 250){
+  if (count++ == 250){
     state = (state + 1) % 3;
+    count = 0;
   }
+}
+
+void rombusStateAdvance(){
+  static char state = 0;
+  switch(state){
+  case 0:
+    drawRombus(10, COLOR_BLUE);
+    break;
+  case 1:
+    drawRombus(20, COLOR_BLUE);
+    break;
+  case 2:
+    drawRombus(30, COLOR_BLUE);
+    break;
+  case 3:
+    drawRombus(40, COLOR_BLUE);
+    break;
+  case 4:
+    drawRombus(10, COLOR_RED);
+    break;
+  case 5:
+    drawRombus(20, COLOR_RED);
+    break;
+  case 6:
+    drawRombus(30, COLOR_RED);
+    break;
+  case 7:
+    drawRombus(40, COLOR_RED);
+    break;
+  }
+
+  state = (state + 1) % 8;
+}
+
+void resetStates(){
+  turn_green_off();
+  buzzer_set_period(0);
+  clearScreen(COLOR_WHITE);
 }

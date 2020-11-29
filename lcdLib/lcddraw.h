@@ -72,6 +72,8 @@ void drawRectOutline(u_char colMin, u_char rowMin, u_char width, u_char height,
  */
 void drawField(u_char col, u_char row);
 
+void drawRombus(u_char size, u_int color);
+
 void drawCharacter(u_char col, u_char row, u_int color);
 
 void drawCharacter2(u_char col, u_char row, u_int color);
