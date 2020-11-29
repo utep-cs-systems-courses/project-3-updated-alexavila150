@@ -7,18 +7,8 @@
 #include "led.h"
 #include "buzzer.h"
 
-void init_smash();
-void playSmashBros();
-
 short redrawScreen = 1;
 u_int fontFgColor = COLOR_GREEN;
-
-char s0IsPressed = 1;
-char s1IsPressed = 1;
-char s2IsPressed = 1;
-char s3IsPressed = 1;
-char buttonState = 4;
-char buttonChanged = 0;
 
 void wdt_c_handler()
 {
@@ -26,14 +16,14 @@ void wdt_c_handler()
   secCount ++;
 
   u_int switches = p2sw_read();
-    
+
   if((switches & BIT8)){
     s0IsPressed = (s0IsPressed) ? 0 : 1;
 
     if(buttonState != 0){
       buttonChanged = 1;
     }
-    
+
     if(s0IsPressed){
       buttonState = 0;
     }
@@ -45,7 +35,7 @@ void wdt_c_handler()
     if(buttonState != 1){
       buttonChanged = 1;
     }
-    
+
     if(s1IsPressed){
       buttonState = 1;
     }
@@ -62,14 +52,14 @@ void wdt_c_handler()
       buttonState = 2;
     }
   }
-  
+
   if((switches & 2048)){
     s3IsPressed = (s3IsPressed) ? 0 : 1;
 
     if(buttonState != 3){
       buttonChanged = 1;
     }
-    
+
     if(s3IsPressed){
       buttonState = 3;
     }
@@ -94,11 +84,11 @@ void wdt_c_handler()
     secCount == 0;
   }
 }
-  
+
 
 void main()
 {
-  P1DIR |= LED_RED;		/**< Green led on when CPU on */		
+  P1DIR |= LED_RED;		/**< Green led on when CPU on */
   P1OUT |= LED_RED;
   configureClocks();
 
@@ -107,11 +97,12 @@ void main()
   led_init();
   p2sw_init(15);
   buzzer_init();
-  
+  static int led_count = 0;
+
   clearScreen(COLOR_WHITE);
   enableWDTInterrupts();      /**< enable periodic interrupt */
   or_sr(0x8);	              /**< GIE (enable interrupts) */
-  
+
   while (1) {			/* forever */
     if (redrawScreen) {
       switch(buttonState){
@@ -126,7 +117,7 @@ void main()
 	if(buttonChanged){
 	  resetStates();
 	}
-	ledStateAdvance();
+	led_count = ledStateAdvance(led_count);
 	break;
       case 2:
 	if(buttonChanged){
@@ -150,20 +141,3 @@ void main()
     P1OUT |= LED_RED;		/* green on */
   }
 }
-
-void init_smash(){
-  clearScreen(COLOR_LIGHT_BLUE);;
-  drawField(60, 90);
-}
-
-void playSmashBros(int secCount){
-  jump_advance();
-  move_advance();
-  drawString8x12(10,20, "Smash Bros!", fontFgColor, COLOR_LIGHT_BLUE);
-  drawCharacter(p1col, p1row, COLOR_RED);
-  drawCharacter2(p2col, p2row, COLOR_BLUE);
-} 
-    
-
-
-

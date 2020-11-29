@@ -70,7 +70,7 @@ void turn_green_middle()
 }
 
 //call function multiple times to produce a bright light
-void turn_green_bright()
+int turn_green_bright(int count)
 {
   static char state = 0;
   switch(state){
@@ -83,4 +83,5 @@ void turn_green_bright()
   }
 
   state = (state + 1) % 4;
+  return count + 1;
 }

@@ -13,6 +13,6 @@ void turn_green_on();
 void turn_green_off();
 void turn_green_dim();
 void turn_green_middle();
-void turn_green_bright();
+int turn_green_bright(int count);
 
 #endif

@@ -6,8 +6,6 @@
 #include "led.h"
 #include "buzzer.h"
 
-int note_index = 0;
-int song_state = 0;
 
 void state_init()
 {
@@ -19,6 +17,14 @@ void state_init()
   minHeight = 83;
   leftLimit = 80;
   rightLimit = 100;
+  note_index = 0;
+  song_state = 0;
+  s0IsPressed = 1;
+  s1IsPressed = 1;
+  s2IsPressed = 1;
+  s3IsPressed = 1;
+  buttonState = 4;
+  buttonChanged = 0;
 }
 
 void jump_advance()
@@ -73,45 +79,23 @@ void delete_player2(u_int bgColor){
 
 void songStateAdvance(){
   static int state = 0;
-  
+
   //change note every 200 miliseconds
   if(++state == duration[note_index] * 50 && note_index < 42){
     note_index++;
     buzzer_set_period(2000000 / notes[note_index]);
     state = 0;
   }
-  
+
   //make pause when node is ending
   if(state == duration[note_index] * 50 - 5){
     buzzer_set_period(0);
   }
-  
+
   //repeat song
   if(note_index == 42){
     buzzer_set_period(0);
     note_index = 0;
-  }
-}
-
-void ledStateAdvance(){
-  static int count = 0; // counts how long is going to repeat
-  static char state = 0; //determines if led is dim medium or bright
-  
-  switch(state){
-  case 0:
-    turn_green_dim();
-    break;
-  case 1:
-    turn_green_middle();
-    break;
-  case 2:
-    turn_green_bright();
-    break;
-  }
-
-  if (count++ == 250){
-    state = (state + 1) % 3;
-    count = 0;
   }
 }
 
@@ -145,6 +129,19 @@ void rombusStateAdvance(){
   }
 
   state = (state + 1) % 8;
+}
+
+void init_smash(){
+  clearScreen(COLOR_LIGHT_BLUE);;
+  drawField(60, 90);
+}
+
+void playSmashBros(int secCount){
+  jump_advance();
+  move_advance();
+  drawString8x12(10,20, "Smash Bros!", COLOR_RED, COLOR_LIGHT_BLUE);
+  drawCharacter(p1col, p1row, COLOR_RED);
+  drawCharacter2(p2col, p2row, COLOR_BLUE);
 }
 
 void resetStates(){
