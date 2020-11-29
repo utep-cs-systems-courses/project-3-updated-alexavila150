@@ -20,6 +20,7 @@ char s2IsPressed;
 char s3IsPressed;
 char buttonState;
 char buttonChanged;
+char led_state;
 
 void state_init();
 void jump_advance();

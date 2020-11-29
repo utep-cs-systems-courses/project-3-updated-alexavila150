@@ -3,9 +3,9 @@
 #include "led.h"
 
 int ledStateAdvance(int count){
-  static char state = 0; //determines if led is dim medium or bright
+  //static char state = 0; //determines if led is dim medium or bright
 
-  switch(state){
+  switch(led_state){
   case 0:
     turn_green_dim();
     count++;
@@ -19,10 +19,13 @@ int ledStateAdvance(int count){
     break;
   }
 
-  if (count > 250){
-    state = (state + 1) % 3;
-    count = 0;
-  }
+  if (count < 250) goto endif2;
+  led_state = led_state + 1;
+  if(led_state != 3) goto endif;
+  led_state = 0;
+endif:
+  count = 0;
+endif2:
 
   return count;
 }

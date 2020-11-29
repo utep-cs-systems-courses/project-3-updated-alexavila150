@@ -25,6 +25,7 @@ void state_init()
   s3IsPressed = 1;
   buttonState = 4;
   buttonChanged = 0;
+  led_state = 0;
 }
 
 void jump_advance()
