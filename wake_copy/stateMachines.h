@@ -10,10 +10,14 @@ int p2col;
 int p2row;
 int maxHeight;
 int minHeight;
+int rightLimit;
+int leftLimit;
 
 void state_init();
 void jump_advance();
+void move_advance();
 void delete_player1();
+void delete_player2();
 void songStateAdvance();
 void ledStateAdvance();
 

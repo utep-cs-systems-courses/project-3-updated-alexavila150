@@ -17,6 +17,8 @@ void state_init()
   p2row = 83;
   maxHeight = 70;
   minHeight = 83;
+  leftLimit = 80;
+  rightLimit = 100;
 }
 
 void jump_advance()
@@ -40,8 +42,33 @@ void jump_advance()
   }
 }
 
+void move_advance()
+{
+  static char state = 0;
+  switch(state){
+  case 0:
+    delete_player2(COLOR_LIGHT_BLUE);
+    p2col--;
+    if(p2col <= leftLimit){
+      state = 1;
+    }
+    break;
+  case 1:
+    delete_player2(COLOR_LIGHT_BLUE);
+    p2col++;
+    if(p2col >= rightLimit){
+      state = 0;
+    }
+    break;
+  }
+}
+
 void delete_player1(u_int bgColor){
   drawCharacter(p1col, p1row, bgColor);
+}
+
+void delete_player2(u_int bgColor){
+  drawCharacter2(p2col, p2row, bgColor);
 }
 
 void songStateAdvance(){

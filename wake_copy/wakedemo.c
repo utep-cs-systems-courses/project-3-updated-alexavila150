@@ -118,6 +118,7 @@ void init_smash(){
 void playSmashBros(int secCount){
   if (secCount % 25 == 0){
     jump_advance();
+    move_advance();
     drawString8x12(10,20, "Smash Bros!", fontFgColor, COLOR_LIGHT_BLUE);
     drawCharacter(p1col, p1row, COLOR_RED);
     drawCharacter2(p2col, p2row, COLOR_BLUE);
