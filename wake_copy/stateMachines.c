@@ -9,6 +9,7 @@
 
 void state_init()
 {
+  // for smash characters
   p1col = 30;
   p1row = 83;
   p2col = 90;
@@ -17,17 +18,24 @@ void state_init()
   minHeight = 83;
   leftLimit = 80;
   rightLimit = 100;
+
+  //for song
   note_index = 0;
   song_state = 0;
+
+  //button listeners
   s0IsPressed = 1;
   s1IsPressed = 1;
   s2IsPressed = 1;
   s3IsPressed = 1;
   buttonState = 4;
   buttonChanged = 0;
+
+  //for leds
   led_state = 0;
 }
 
+//animation for red player. this draws one frame every time
 void jump_advance()
 {
   static char state = 0;
@@ -49,6 +57,7 @@ void jump_advance()
   }
 }
 
+//animation for blue player. Draws one frame every time
 void move_advance()
 {
   static char state = 0;
@@ -70,14 +79,17 @@ void move_advance()
   }
 }
 
+// deletes previous player before drawing the new one
 void delete_player1(u_int bgColor){
   drawCharacter(p1col, p1row, bgColor);
 }
 
+// deletes previous player before drawing the new one
 void delete_player2(u_int bgColor){
   drawCharacter2(p2col, p2row, bgColor);
 }
 
+// keeps track of the song state and advances every time it is called
 void songStateAdvance(){
   static int state = 0;
 
@@ -100,6 +112,7 @@ void songStateAdvance(){
   }
 }
 
+// draws a new rhombues every time depending on the state
 void rombusStateAdvance(){
   static char state = 0;
   switch(state){
@@ -132,11 +145,13 @@ void rombusStateAdvance(){
   state = (state + 1) % 8;
 }
 
+// draws background so that is not added every time
 void init_smash(){
   clearScreen(COLOR_LIGHT_BLUE);;
   drawField(60, 90);
 }
 
+// animates both players
 void playSmashBros(int secCount){
   jump_advance();
   move_advance();
@@ -145,6 +160,7 @@ void playSmashBros(int secCount){
   drawCharacter2(p2col, p2row, COLOR_BLUE);
 }
 
+// makes sure the next state can be added
 void resetStates(){
   turn_green_off();
   buzzer_set_period(0);

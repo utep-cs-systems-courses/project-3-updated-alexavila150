@@ -17,13 +17,16 @@ void wdt_c_handler()
 
   u_int switches = p2sw_read();
 
+  //Checks if s1 has change
   if((switches & BIT8)){
+    //button is pressed every two senses
     s0IsPressed = (s0IsPressed) ? 0 : 1;
 
+    //checks if the button press was the same as the last one
     if(buttonState != 0){
       buttonChanged = 1;
     }
-
+    
     if(s0IsPressed){
       buttonState = 0;
     }
@@ -67,19 +70,19 @@ void wdt_c_handler()
 
   switch(buttonState){
   case 0:
-    if(secCount % 25 == 0) redrawScreen = 1;
+    if(secCount % 25 == 0) redrawScreen = 1; //draws every .1 seconds
     break;
   case 1:
-    redrawScreen = 1;
+    redrawScreen = 1; //led is updated constantly
     break;
   case 2:
-    redrawScreen = 1;
+    redrawScreen = 1; //song is updated constantly
     break;
   case 3:
-    if(secCount % 250 == 0) redrawScreen = 1;
+    if(secCount % 250 == 0) redrawScreen = 1; // rhombus is updated every second
     break;
   }
-
+  
   if(secCount % 250 == 0){
     secCount == 0;
   }
@@ -107,30 +110,30 @@ void main()
     if (redrawScreen) {
       switch(buttonState){
       case 0:
-	if(buttonChanged){
+	if(buttonChanged){ //reset states when button changed state
 	  resetStates();
 	  init_smash();
 	}
-	playSmashBros();
+	playSmashBros(); // draws next step in the animation
 	break;
       case 1:
 	if(buttonChanged){
 	  resetStates();
 	}
-	led_count = ledStateAdvance(led_count);
+	led_count = ledStateAdvance(led_count); // advance the state and returns incremented count
 	break;
       case 2:
 	if(buttonChanged){
 	  resetStates();
 	}
-	songStateAdvance();
+	songStateAdvance(); // plays song note by note in an infinite cycle
 	break;
       case 3:
 	if(buttonChanged){
 	  resetStates();
-	  drawString8x12(25,20, "Rumbus :D", COLOR_ORANGE, COLOR_WHITE);
+	  drawString8x12(25,20, "Rhombus :D", COLOR_ORANGE, COLOR_WHITE);
 	}
-	rombusStateAdvance();
+	rombusStateAdvance(); // draws a new rhombus every time
 	break;
       }
       buttonChanged = 0;
