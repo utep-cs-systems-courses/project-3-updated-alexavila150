@@ -5,6 +5,8 @@
 int ledStateAdvance(int count){
   //static char state = 0; //determines if led is dim medium or bright
 
+  if(!(led_state < 3)) goto skipswitch;
+
   switch(led_state){
   case 0:
     turn_green_dim();
@@ -18,7 +20,7 @@ int ledStateAdvance(int count){
     count = turn_green_bright(count);
     break;
   }
-
+skipswitch:
   if (count < 250) goto endif2;
   led_state = led_state + 1;
   if(led_state != 3) goto endif;

@@ -40,6 +40,7 @@ void turn_green_off()
 //call function multiple times to produce a dim red light
 void turn_green_dim()
 {
+  buzzer_set_period(784);
   static char state = 0;
   switch(state){
   case 0:
@@ -56,6 +57,7 @@ void turn_green_dim()
 //call function multiple times to produce a semi dim light
 void turn_green_middle()
 {
+  buzzer_set_period(784);
   static char state = 0;
   switch(state){
   case 0:
@@ -72,6 +74,7 @@ void turn_green_middle()
 //call function multiple times to produce a bright light
 int turn_green_bright(int count)
 {
+  buzzer_set_period(784);
   static char state = 0;
   switch(state){
   case 0:
