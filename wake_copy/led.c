@@ -6,41 +6,35 @@
 void led_init()
 {
   P1DIR |= LEDS;		// bits attached to leds are output
-  //switch_state_changed = 1;
 }
 
 //turns red on with unique sound
 void turn_red_on()
 {
   P1OUT |= LED_RED;
-  //buzzer_set_period(880);
 }
 
 //turns led and sound off
 void turn_red_off()
 {
   P1OUT &= ~LED_RED;
-  //buzzer_set_period(0);
 }
 
 //turns green and unique sound on
 void turn_green_on()
 {
   P1OUT |= LED_GREEN;
-  //buzzer_set_period(784);
 }
 
 //turns led and sound off
 void turn_green_off()
 {
   P1OUT &= ~LED_GREEN;
-  //buzzer_set_period(0);
 }
 
 //call function multiple times to produce a dim red light
 void turn_green_dim()
 {
-  buzzer_set_period(784);
   static char state = 0;
   switch(state){
   case 0:
@@ -57,7 +51,6 @@ void turn_green_dim()
 //call function multiple times to produce a semi dim light
 void turn_green_middle()
 {
-  buzzer_set_period(784);
   static char state = 0;
   switch(state){
   case 0:
@@ -74,7 +67,6 @@ void turn_green_middle()
 //call function multiple times to produce a bright light
 int turn_green_bright(int count)
 {
-  buzzer_set_period(784);
   static char state = 0;
   switch(state){
   case 0:
